@@ -1,0 +1,31 @@
+        // TODO add your handling code here:
+        //Creamos nuestra variable archivo en la cual podremos usar todos los metodos de la clase jFileChooser
+        JFileChooser archivo = new JFileChooser();
+        //Si deseamos crear filtros para la selecion de archivos
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Formatos de Archivos JPEG(*.JPG;*.JPEG)", "jpg","jpeg");
+        //Si deseas que se muestre primero los filtros usa la linea q esta abajo de esta.
+        //archivo.setFileFilter(filtro);
+        // Agregamos el Filtro pero cuidado se mostrara despues de todos los archivos
+        archivo.addChoosableFileFilter(filtro);
+        // Colocamos titulo a nuestra ventana de Seleccion
+        archivo.setDialogTitle("Abrir Archivo");
+        //Si deseamos que muestre una carpeta predetermina usa la siguiente linea
+        File ruta = new File("D:/productos");
+        //Le implementamos a nuestro ventana de seleccion
+         archivo.setCurrentDirectory(ruta);
+         //Abrimos nuestra Ventana de Selccion
+        int ventana = archivo.showOpenDialog(null);
+        //hacemos comparacion en caso de aprete el boton abrir
+        if(ventana == JFileChooser.APPROVE_OPTION)
+        {
+            //Obtenemos la ruta de nuestra imagen seleccionada
+            File file = archivo.getSelectedFile();
+            //Lo imprimimos en una caja de texto para ver su ruta
+            txtnomimagen.setText(String.valueOf(file));
+            //de cierto modo necesitamos tener la imagen para ello debemos conocer la ruta de dicha imagen
+            Image foto= getToolkit().getImage(txtnomimagen.getText());
+            //Le damos dimension a nuestro label que tendra la imagen
+            foto= foto.getScaledInstance(110, 110, Image.SCALE_DEFAULT);
+            //Imprimimos la imagen en el label
+            lblfoto.setIcon(new ImageIcon(foto));
+        }
